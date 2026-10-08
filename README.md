@@ -1,6 +1,6 @@
 # Bloxivora
 
-Offline terminal falling-block line-clear game. Version 1.0.0. Original terminal artwork; no account, desktop or telemetry. No assets or names taken from other games.
+Offline terminal falling-block line-clear game. Version 1.0.1. Original terminal artwork; no account, desktop or telemetry. No assets or names taken from other games.
 
 ## Install and run
 
@@ -19,4 +19,6 @@ For tests:
 
     python3 -m unittest -v
 
-10 core tests plus actual Linux PTY visual/input smoke. Linux tested; physical Raspberry Pi and non-Linux untested. Without curses the interactive game is unavailable. No paid features. games category marker line3; older stores still list/launch it. MIT license; see LICENSE.txt.
+13 core tests plus actual Linux PTY visual/input smoke. Linux tested; physical Raspberry Pi and non-Linux untested. Without curses the interactive game is unavailable. No paid features. games category marker line3; older stores still list/launch it. MIT license; see LICENSE.txt.
+
+1.0.1: terminal startup failure exits with an error status rather than pretend success. Added gravity-floor, blocked-rotation and double-line compaction regressions. Core play unchanged.
