@@ -36,6 +36,7 @@ class Game:
   if self.valid(self.shape,self.x,self.y+1):self.y+=1;return True
   for p in self.cells():self.board[p]=self.kind+1
   self.clear();self.spawn();return False
+ def interval(self):return max(.12,.7-.05*(self.lines//10))
  def drop(self):
   if self.dead:return
   while self.valid(self.shape,self.x,self.y+1):self.y+=1;self.score+=2
@@ -54,7 +55,7 @@ def run(stdscr,seed):
      v=g.kind+1 if (x,y) in active else g.board.get((x,y),0);text(stdscr,4+y,5+x*2,'##' if v else ' .',((v-1)%6+1) if v else 0,True)
    text(stdscr,22,4,'+--------------------+',1);text(stdscr,5,30,'NEXT',1)
    for dx,dy in SHAPES[g.next]:text(stdscr,7+dy,30+dx*2,'##',g.next%6+1)
-   if not paused and time.monotonic()-last>=max(.12,.7-.05*(g.lines//10)):g.down();last=time.monotonic()
+   if not paused and time.monotonic()-last>=g.interval():g.down();last=time.monotonic()
   stdscr.refresh();k=stdscr.getch()
   if k==ord('q'):return
   if k==ord('r'):g=Game(seed);paused=False;last=time.monotonic()
@@ -70,6 +71,6 @@ def main():
  if a.demo:
   g=Game(a.seed);print('BLOXIVORA\n'+ '\n'.join(''.join('#' if (x,y) in g.cells() else '.' for x in range(10)) for y in range(18)));return
  try:curses.wrapper(run,a.seed)
- except curses.error:print('Needs an interactive curses terminal (82x25 minimum).')
+ except curses.error:print('Needs an interactive curses terminal (82x25 minimum).');return 2
  except KeyboardInterrupt:pass
-if __name__=='__main__':main()
+if __name__=='__main__':raise SystemExit(main())
