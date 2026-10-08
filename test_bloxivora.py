@@ -27,4 +27,11 @@ class Tests(unittest.TestCase):
    g=Game(i)
    for _ in range(60):
     g.rotate();g.move(g.rng.choice([-1,1]));g.drop();self.assertTrue(all(0<=x<10 and 0<=y<18 for x,y in g.board))
+class MoreTests(unittest.TestCase):
+ def test_speed(self):
+  g=Game();self.assertEqual(g.interval(),.7);g.lines=10;self.assertLess(g.interval(),.7);g.lines=10000;self.assertEqual(g.interval(),.12)
+ def test_no_rotate_through(self):
+  g=Game();g.kind=2;g.shape=SHAPES[2];g.x=3;g.y=4;g.board={(x,y):1 for x in range(10) for y in range(4,7) if (x,y) not in g.cells()};self.assertFalse(g.rotate())
+ def test_double_compaction(self):
+  g=Game();g.board={(x,y):1 for x in range(10) for y in (16,17)};g.board[2,15]=2;g.clear();self.assertEqual(g.board,{(2,17):2})
 if __name__=='__main__':unittest.main()
