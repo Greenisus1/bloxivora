@@ -48,13 +48,13 @@ def run(stdscr,seed):
   h,w=stdscr.getmaxyx()
   if h<25 or w<82:text(stdscr,4,2,'Resize to 82x25. Board paused.',3);last=time.monotonic()
   else:
-   active=set(g.cells())
+   active=set(g.cells());cw=max(2,(w-24)//10);rh=max(1,(h-7)//18);left=2;top=4
    for y in range(18):
-    text(stdscr,4+y,4,'|',1);text(stdscr,4+y,25,'|',1)
     for x in range(10):
-     v=g.kind+1 if (x,y) in active else g.board.get((x,y),0);text(stdscr,4+y,5+x*2,'##' if v else ' .',((v-1)%6+1) if v else 0,True)
-   text(stdscr,22,4,'+--------------------+',1);text(stdscr,5,30,'NEXT',1)
-   for dx,dy in SHAPES[g.next]:text(stdscr,7+dy,30+dx*2,'##',g.next%6+1)
+     v=g.kind+1 if (x,y) in active else g.board.get((x,y),0)
+     for dy in range(rh):text(stdscr,top+y*rh+dy,left+x*cw,'█'*cw if v else ('·'+' '*(cw-1)),((v-1)%6+1) if v else 0,True)
+   text(stdscr,top+18*rh,left,'─'*(cw*10),1);text(stdscr,5,left+cw*10+2,'NEXT',1)
+   for dx,dy in SHAPES[g.next]:text(stdscr,7+dy,left+cw*10+2+dx*2,'██',g.next%6+1)
    if not paused and time.monotonic()-last>=g.interval():g.down();last=time.monotonic()
   stdscr.refresh();k=stdscr.getch()
   if k==ord('q'):return
