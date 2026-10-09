@@ -22,3 +22,5 @@ For tests:
 13 core tests plus actual Linux PTY visual/input smoke. Linux tested; physical Raspberry Pi and non-Linux untested. Without curses the interactive game is unavailable. No paid features. games category marker line3; older stores still list/launch it. MIT license; see LICENSE.txt.
 
 1.0.1: terminal startup failure exits with an error status rather than pretend success. Added gravity-floor, blocked-rotation and double-line compaction regressions. Core play unchanged.
+
+Fullscreen update: Store interactive launch uses terminal-sized board cells or wrapped full-terminal utility input/results with PgUp/PgDn scrolling. Original core rules and direct CLI commands remain unchanged. Ctrl+C cancels utility entry, result Enter returns; no new dependency downloads. Linux PTY resize/restoration checked; physical Pi untested.
